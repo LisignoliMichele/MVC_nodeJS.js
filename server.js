@@ -13,9 +13,13 @@ const path = require('path');
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'))
 
+
+// ROUTES
 const messagesRouter = require('./routes/messages.router');
 const friendsRouter = require('./routes/friends.router')
 
+
+// PORT
 const PORT = 3000;
 
 
@@ -28,7 +32,6 @@ app.use((req, res, next) =>{
    console.log(`this operation toke ${delta}ms`)
 });
 
-app.use(express.json());
 
 // //Middlewhere
 
@@ -41,6 +44,12 @@ app.get('/', (req, res) =>{
 
 app.use('/messages', messagesRouter);
 app.use('/friends', friendsRouter);
+
+// path css or other files in public
+app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+
+
 
 app.listen (PORT, () =>{
    console.log(`listening on ${PORT}...`);
